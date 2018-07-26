@@ -1,8 +1,8 @@
 # PKURunningHelper
 
-这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于自动生成和上传跑步记录，目前支持 PB 。
+这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于伪造生成和上传跑步记录，目前支持 PB 。
 
-该项目改写自我的一个学长的项目 [PKULayer](https://github.com/tegusi/PKULayer)
+该项目改写自学长的项目 [PKULayer](https://github.com/tegusi/PKULayer)
 
 
 ## 依赖环境
