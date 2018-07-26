@@ -2,14 +2,14 @@
 
 这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于自动生成和上传跑步记录，目前支持 PB 。
 
-该项目改写自我的一个学长的项目 (PKULayer)(https://github.com/tegusi/PKULayer)
+该项目改写自我的一个学长的项目 [PKULayer](https://github.com/tegusi/PKULayer)
 
 
 ## 依赖环境
 
-+ 该项目目前仅支持 Python3
++ 该项目目前仅支持 Python 3
 ```
-$ apt-get install python3
+$ apt-get install python3.6
 ```
 
 + 安装依赖包 requests
@@ -74,7 +74,7 @@ Section [PB]
 }
 ```
 
-+ 确定配置文件书写正确后，输入 --start ，即可完成一次上传
++ 确保配置文件书写，然后输入 --start，即可完成一次上传
 ```
 $ python3 runner.py --start
 
