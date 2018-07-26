@@ -4,9 +4,13 @@
 
 该项目改写自我的一个学长的项目 (PKULayer)(https://github.com/tegusi/PKULayer)
 
-## 安装依赖环境
+
+## 依赖环境
 
 + 该项目目前仅支持 Python3
+```
+$ apt-get install python3
+```
 
 + 安装依赖包 requests
 ```
@@ -29,7 +33,7 @@ $ git clone https://github.com/zhongxinghong/PKURunningHelper
 
 + 进入项目根目录
 ```
-$ cd PKURunningHelper
+$ cd PKURunningHelper/
 ```
 
 + 首先根据提示，修改配置文件 config.ini
@@ -100,7 +104,7 @@ PKURunningHelper/
     └── utilfuncs.py
 ```
 
-### Class PBclient 的工作原理
+### PBclient 的工作原理
 + 首先伪装登录，获取 session token 和个人标识 biggerId
 + 根据 Fiddler 抓包结果，伪造数据包，并引入随机量
 + 利用 gzip 压缩数据包，然后伪造 multipart-form/data 请求，上传数据包
