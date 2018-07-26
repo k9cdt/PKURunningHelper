@@ -2,24 +2,30 @@
 
 这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于自动生成和上传跑步记录，目前支持 PB 。
 
-该项目改写自我的一个学长的项目 [PKULayer][https://github.com/tegusi/PKULayer]
+该项目改写自我的一个学长的项目 (PKULayer)(https://github.com/tegusi/PKULayer)
 
-## 安装
+## 安装依赖环境
 
-该项目依赖 requests
++ 该项目目前仅支持 Python3
+
++ 安装依赖包 requests
 ```
-pip3 install requests
+$ pip3 install requests
 ```
 
-下载这个分支到本地:
++ 可选择安装 simplejson
+```
+$ pip3 install simplejson
+```
+
+## 下载
+
++ 下载这个分支到本地:
 ```
 $ git clone https://github.com/zhongxinghong/PKURunningHelper
-
 ```
 
 ## 用法
-
-Linux 下
 
 + 进入项目根目录
 ```
@@ -41,7 +47,6 @@ Options:
   -h, --help   show this help message and exit
   -c, --check  show 'config.ini' file
   -s, --start  run the runner's client
-
 ```
 
 + 输入参数 --check 检查配置文件的解析情况
@@ -63,14 +68,13 @@ Section [PB]
     "pace": "4.50",
     "stride_frequncy": "160"
 }
-
 ```
+
 + 确定配置文件书写正确后，输入 --start ，即可完成一次上传
 ```
 $ python3 runner.py --start
 
 Upload record successfully !
-
 ```
 
 ## 文件夹结构与工作原理
@@ -96,18 +100,18 @@ PKURunningHelper/
     └── utilfuncs.py
 ```
 
-#### PBclient
-+ 首先伪装登录，获取 session token 和 biggerId
+### Class PBclient 的工作原理
++ 首先伪装登录，获取 session token 和个人标识 biggerId
 + 根据 Fiddler 抓包结果，伪造数据包，并引入随机量
 + 利用 gzip 压缩数据包，然后伪造 multipart-form/data 请求，上传数据包
 
 如果你需要查看 gzip 数据包，可以通过以下命令解压，将结果输出至终端
 ```
-gzip -d 867.gz -c
+$ gzip -d 867.gz -c
 ```
 也可以直接写入到 json 文件
 ```
-gzip -d 867.gz -c > 867.json
+$ gzip -d 867.gz -c > 867.json
 ```
 
 ## 声明
