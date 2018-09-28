@@ -1,0 +1,72 @@
+.
+├── LICENSE
+├── PB
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-36.pyc
+│   │   └── client.cpython-36.pyc
+│   ├── client.py
+│   └── data
+│       └── 400m.locus.json
+├── PKULayer
+│   ├── 54.json
+│   ├── PBRunner.py
+│   ├── PKULayer.py
+│   ├── README.md
+│   └── requirements.txt
+├── PKURunner
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-36.pyc
+│   │   ├── client.cpython-36.pyc
+│   │   ├── iaaa.cpython-36.pyc
+│   │   └── record.cpython-36.pyc
+│   ├── a.class
+│   ├── client.py
+│   ├── data
+│   │   └── 400m.250p.54.json
+│   ├── iaaa.py
+│   └── record.py
+├── README.md
+├── cache
+│   └── PKURunner_AccessToken.json
+├── config.ini
+├── config.ini.bac
+├── requirements.txt
+├── runner.py
+├── test
+│   ├── PB
+│   │   ├── 11km.locus.json
+│   │   ├── 309.gz
+│   │   ├── 309.json
+│   │   ├── 309_Request.txt
+│   │   ├── 54.json
+│   │   ├── 867.gz
+│   │   ├── 867.json
+│   │   └── 867_Request.txt
+│   ├── PKURunner
+│   │   ├── code.-1.json
+│   │   ├── code.4.json
+│   │   ├── record.0.json
+│   │   ├── record.1.json
+│   │   ├── record.10.json
+│   │   ├── record.7.json
+│   │   └── upload.json
+│   └── c.py
+├── tree.txt
+└── util
+    ├── __init__.py
+    ├── __pycache__
+    │   ├── __init__.cpython-36.pyc
+    │   ├── class_.cpython-36.pyc
+    │   ├── error.cpython-36.pyc
+    │   ├── func.cpython-36.pyc
+    │   ├── module.cpython-36.pyc
+    │   ├── utilclass.cpython-36.pyc
+    │   └── utilfuncs.cpython-36.pyc
+    ├── class_.py
+    ├── error.py
+    ├── func.py
+    └── module.py
+
+13 directories, 56 files

@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 # filename: runner.py
 
-import json
 from optparse import OptionParser
-from util.utilclass import Config
+from util import (
+        Config, Logger,
+        json,
+    )
 
 config = Config()
+logger = Logger("runner")
 
 
 parser = OptionParser(usage="PKU running helper ! Check your config first, then enjoy yourself !")
@@ -18,22 +21,28 @@ options, args = parser.parse_args()
 
 if options.check is not None:
 
-	for section in config.sections():
-		print("Section [%s]" % section)
-		print(json.dumps(dict(config[section]), indent=4))
-		print("\n")
-
+    for section in config.sections():
+        print("Section [%s]" % section)
+        print(json.dumps(dict(config[section]), indent=4))
+        print("\n")
 
 elif options.start is not None:
 
-	software = config.get('Base', 'software')
+    app = config.get('Base', 'APP')
 
-	if software == 'PB':
+    if app == 'PB':
+        from PB import PBClient as Client
+    elif app == "PKURunner":
+        from PKURunner import PKURunnerClient as Client
+    else:
+        raise ValueError("unsupported running APP -- %s !" % app)
 
-		from PB.client import PBclient
-		client = PBclient()
-		client.run()
-
-	else:
-		raise ValueError("unregistered running software -- %s !" % software)
+    try:
+        client = Client()
+        client.run()
+    except Exception as err:
+        logger.error("upload record failed !")
+        raise err
+    else:
+        logger.info("upload record success !")
 

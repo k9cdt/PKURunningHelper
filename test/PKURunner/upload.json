@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "version": 20170201,
+    "code": 0,
+    "message": "",
+    "data": {
+        "verified": true,
+        "step": 1388,
+        "type": 0,
+        "invalidReason": 0,
+        "_id": "5bade32a75a6563d7190c1d9",
+        "duration": 499,
+        "date": "2018-09-28T08:17:36.000Z",
+        "userId": 1234567890,
+        "recordId": 11,
+        "distance": 1082,
+        "__v": 0,
+        "photoPath": "",
+        "id": "5bade32a75a6563d7190c1d9"
+    }
+}
