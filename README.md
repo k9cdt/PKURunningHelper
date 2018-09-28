@@ -1,23 +1,23 @@
 # PKURunningHelper
 
-这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于伪造生成和上传跑步记录，目前支持 `PB`, `PKURunner`
+这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于伪造生成和上传跑步记录，目前支持 PB, PKURunner
 
 该项目改写自学长的项目 [PKULayer](https://github.com/tegusi/PKULayer)
 
 
 ## 依赖环境
 
-该项目目前仅支持 `Python 3`
+该项目目前仅支持 Python 3
 ```
 $ apt-get install python3.6
 ```
 
-安装依赖包 `requests`, `requests_toolbelt`
+安装依赖包 requests, requests_toolbelt
 ```
 $ pip3 install requests requests_toolbelt
 ```
 
-可选择安装 `simplejson`
+可选择安装 simplejson
 ```
 $ pip3 install simplejson
 ```
@@ -38,12 +38,12 @@ $ git clone https://github.com/zhongxinghong/PKURunningHelper
 $ cd PKURunningHelper/
 ```
 
-首先根据提示，修改配置文件 `config.ini`
+首先根据提示，修改配置文件 config.ini
 ```console
 $ vim config.ini
 ```
 
-运行 `runner.py` 查看命令行界面，输入参数 `--help` 查看用法
+运行 runner.py 查看命令行界面，输入参数 --help 查看用法
 ```console
 $ python3 runner.py --help
 
@@ -55,7 +55,7 @@ Options:
   -s, --start  run the runner's client
 ```
 
-输入参数 `--check` 检查配置文件的解析情况
+输入参数 --check 检查配置文件的解析情况
 ```console
 $ python3 runner.py --check
 
@@ -86,11 +86,11 @@ Section [PKURunner]
 }
 ```
 
-确保配置文件书写，然后输入 `--start`，即可完成一次上传。默认为 `debug` 模式，因此还会输出每次请求返回的 json 数据包
+确保配置文件书写，然后输入 --start，即可完成一次上传。默认为 debug 模式，因此还会输出每次请求返回的 json 数据包
 ```console
 $ python3 runner.py --start
 
-Upload record successfully !
+[INFO] runner, 2018-09-28 18:08:55, upload record success !
 ```
 
 
