@@ -108,6 +108,14 @@ $ python3 runner.py --start
 
 ```
 PKURunningHelper/
+├── Joyrun                    // Joyrun 客户端程序包
+│   ├── __init__.py
+│   ├── auth.py                   // 请求鉴权类
+│   ├── client.py                 // Joyrun 客户端程序包
+│   ├── data                  // 跑步记录数据
+│   │   └── 400m.250p.54.joyrun.json       // 由 PKURunner 的跑步数据经过校正得到
+│   ├── error.py                  // 错误类定义
+│   └── record.py                 // 跑步记录类
 ├── LICENSE
 ├── PB                        // PB 客户端程序包
 │   ├── __init__.py
@@ -119,7 +127,7 @@ PKURunningHelper/
 │   ├── __init__.py
 │   ├── client.py                 // PKURunner 客户端类
 │   ├── data                  // 跑步记录数据
-│   │   └── 400m.250p.54.json     // 五四跑廊走一圈的高德 GPS 数据，共 250 点，坐标手动校正过
+│   │   └── 400m.250p.54.pkurunner.json    // 五四跑廊走一圈的高德 GPS 数据，共 250 点，坐标手动校正过
 │   ├── error.py                  // 错误类定义
 │   ├── iaaa.py                   // 北大 iAAA 统一认证客户端类
 │   └── record.py                 // 跑步记录类
