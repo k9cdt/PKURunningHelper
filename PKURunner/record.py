@@ -44,7 +44,7 @@ class Record(object):
                 pace                float    跑步速度/(min/km)
                 stride_frequncy     int      步频/(step/min)
     """
-    A_Loop_GPS_JSON = "400m.250p.54.json"
+    A_Loop_GPS_JSON = "400m.250p.54.pkurunner.json"
     Distance_Per_Loop = 0.45 # 由于引入坐标偏移，最终上传后一圈的距离将大于 0.4 km ，此处用于修正上传值与理论值间的误差
 
     def __init__(self, distance, pace, stride_frequncy):

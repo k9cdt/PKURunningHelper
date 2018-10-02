@@ -34,6 +34,8 @@ elif options.start is not None:
         from PB import PBClient as Client
     elif app == "PKURunner":
         from PKURunner import PKURunnerClient as Client
+    elif app == "Joyrun":
+        from Joyrun import JoyrunClient as Client
     else:
         raise ValueError("unsupported running APP -- %s !" % app)
 

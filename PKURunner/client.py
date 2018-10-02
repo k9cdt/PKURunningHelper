@@ -14,16 +14,27 @@ from functools import wraps
 try:
     from .iaaa import IAAAClient
     from .record import Record
+    from .error import (
+            PKURunnerRequestStatusError,
+            PKURunnerUnauthorizedError,
+            PKURunnerSuccessStateError,
+            PKURunnerNotVerifiedError,
+        )
 except (ImportError, SystemError, ValueError):
     from iaaa import IAAAClient
     from record import Record
+    from error import (
+            PKURunnerRequestStatusError,
+            PKURunnerUnauthorizedError,
+            PKURunnerSuccessStateError,
+            PKURunnerNotVerifiedError,
+        )
 
 try:
     from ..util import (
             Config, Logger,
             pretty_json, json_dump,
             json,
-            PKURunnerError, PKURunnerUnauthorizedError, PKURunnerSuccessStateError,
         )
 except (ImportError, SystemError, ValueError):
     import sys
@@ -32,7 +43,6 @@ except (ImportError, SystemError, ValueError):
             Config, Logger,
             pretty_json, json_dump,
             json,
-            PKURunnerError, PKURunnerUnauthorizedError, PKURunnerSuccessStateError,
         )
 
 
@@ -50,6 +60,8 @@ class PKURunnerAuth(AuthBase):
         self.access_token = access_token
 
     def refresh(self, access_token):
+        """ 更新 access_token
+        """
         self.access_token = access_token
 
     def __call__(self, r):
@@ -106,6 +118,7 @@ class PKURunnerClient(object):
     logger = Logger("PKURunner")
     BaseURL = "https://pkunewyouth.pku.edu.cn"
 
+
     def __init__(self):
         studentID = config.get("PKURunner", "StudentID")
         password = config.get("PKURunner", "Password")
@@ -120,20 +133,18 @@ class PKURunnerClient(object):
                 "User-Agent": "okhttp/3.10.0",
             }
 
-    def __request(self, method, url, raw=False, verify_success=True, **kwargs):
+    def __request(self, method, url, verify_success=True, **kwargs):
         """ 网路请求函数模板，对返回结果做统一校验
 
             Args:
                 method            str    请求 method
                 url               str    请求 url/path
-                raw               bool   是否直接返回 Response （默认 false），否则返回 json 数据
                 verify_success    bool   是否校验 success 字段 （默认 true），对于无 success 返回值的请求不需要校验
                 **kwargs                 传给 requests.request 函数
             Returns:
-                respJson    jsonData    json 数据 if raw == False
-                resp        Response    原始 Response 实例 if raw == True
+                respJson      jsonData   json 数据
             Raises:
-                PKURunnerError                 网络请求错误
+                PKURunnerRequestStatusError    请求状态码异常
                 PKURunnerUnauthorizedError     鉴权失败
                 PKURunnerSuccessStateError     success 状态为 false
         """
@@ -151,7 +162,7 @@ class PKURunnerClient(object):
             else:
                 self.logger.error("resp.headers = %s" % pretty_json(dict(resp.headers)))
                 self.logger.error("resp.text = %s" % resp.text)
-                raise PKURunnerError("resp.ok error")
+                raise PKURunnerRequestStatusError("resp.ok error")
         else:
             respJson = resp.json()
             if verify_success and not respJson.get("success"):
@@ -159,7 +170,7 @@ class PKURunnerClient(object):
                 raise PKURunnerSuccessStateError("resp.json error")
             else:
                 self.logger.debug("resp.url = {url} \nresp.json = {json}".format(url=resp.url, json=pretty_json(respJson)))
-                return respJson if raw == False else resp
+                return respJson
 
     def get(self, url, params={}, **kwargs):
         return self.__request('GET', url, params=params, **kwargs)
@@ -238,6 +249,9 @@ class PKURunnerClient(object):
                 'Content-Type': m.content_type
             }, auth=self.auth)
 
+        if not respJson["data"]["verified"]:
+            raise PKURunnerNotVerifiedError("record is not verified, check your running params setting.")
+
 
     @unauthorized_retry(1)
     def get_badges(self):
@@ -258,7 +272,7 @@ class PKURunnerClient(object):
         """
         distance = config.getfloat("PKURunner", "distance") # 总距离 km
         pace = config.getfloat("PKURunner", "pace") # 速度 min/km
-        stride_frequncy = config.getint("PKURunner", "stride_frequncy") # 步频 步/min
+        stride_frequncy = config.getint("PKURunner", "stride_frequncy") # 步频 step/min
 
         record = Record(distance, pace, stride_frequncy)
         self.upload_record_without_photo(record)

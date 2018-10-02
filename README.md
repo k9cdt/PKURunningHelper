@@ -1,6 +1,6 @@
 # PKURunningHelper
 
-这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于伪造生成和上传跑步记录，目前支持 `PB`, `PKU Runner`
+这是一个慢性腰痛但是开不出证明的苦逼大学生为了能够毕业而写的小工具，用于伪造生成和上传跑步记录，目前支持 `PB`, `PKU Runner`, `悦跑圈 Joyrun`
 
 该项目改写自学长的项目 [PKULayer](https://github.com/tegusi/PKULayer)
 
@@ -61,7 +61,7 @@ $ python3 runner.py --check
 
 Section [Base]
 {
-    "app": "PKURunner",
+    "app": "Joyrun",
     "debug": "true"
 }
 
@@ -80,6 +80,16 @@ Section [PKURunner]
 {
     "studentid": "1x000xxxxx",
     "password": "xxxxxxxx",
+    "distance": "3.10",
+    "pace": "5.00",
+    "stride_frequncy": "160"
+}
+
+
+Section [Joyrun]
+{
+    "studentid": "1x000xxxxx",
+    "password": "123456",
     "distance": "1.20",
     "pace": "5.50",
     "stride_frequncy": "160"
@@ -102,22 +112,37 @@ PKURunningHelper/
 ├── PB                        // PB 客户端程序包
 │   ├── __init__.py
 │   ├── client.py                 // PB 客户端类，伪造 HTTP 请求，生成 Running Record
-│   └── data                  // 跑步记录数据
-│       └── 400m.locus.json       // 五四跑廊一圈 GPS 数据，抽取和修改自我曾经的跑步记录
+│   ├── data                  // 跑步记录数据
+│   │   └── 400m.locus.json       // 五四跑廊一圈 GPS 数据，抽取和修改自我曾经的跑步记录
+│   └── error.py                  // 错误类定义
 ├── PKURunner                 // PKURunner 客户端程序包
 │   ├── __init__.py
 │   ├── client.py                 // PKURunner 客户端类
 │   ├── data                  // 跑步记录数据
 │   │   └── 400m.250p.54.json     // 五四跑廊走一圈的高德 GPS 数据，共 250 点，坐标手动校正过
+│   ├── error.py                  // 错误类定义
 │   ├── iaaa.py                   // 北大 iAAA 统一认证客户端类
 │   └── record.py                 // 跑步记录类
 ├── README.md
 ├── cache                     // 缓存文件夹
+│   ├── Joyrun_LoginInfo.json         // Joyrun 的登录状态缓存
 │   └── PKURunner_AccessToken.json    // PKURunner 的 iAAA 认证所得 token 缓存
 ├── config.ini                    // 项目配置文件
 ├── requirements.txt
 ├── runner.py                     // 项目主程序
-├── test                      // 主要存储了一些抓包结果和 API 调用结果
+├── test                      // 主要存储了一些抓包结果，API 调用结果，测试代码等
+│   ├── Joyrun
+│   │   ├── 401.json
+│   │   ├── joyrun.saz
+│   │   ├── joytherun.cpp
+│   │   ├── main.cpp
+│   │   ├── md5.cpp
+│   │   ├── md5.h
+│   │   ├── ......
+│   │   ├── po.aspx.247294144.saz
+│   │   ├── record.247074473.json
+│   │   ├── record.247074473.parse.json
+│   │   └── test.py
 │   ├── PB
 │   │   ├── 11km.locus.json
 │   │   ├── 309.gz
@@ -131,7 +156,6 @@ PKURunningHelper/
 └── util                      // 通用程序包
     ├── __init__.py
     ├── class_.py                 // 通用类
-    ├── error.py                  // 错误类
     ├── func.py                   // 通用函数库
     └── module.py                 // 通用模板类，统一 import 导入结果
 ```

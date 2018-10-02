@@ -1,39 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# filename: util/error.py
+# filename: PKURunner/error.py
 #
-# 错误类定义
+# 错误类
 #
-
-from .module import JSONDecodeError
-
 
 __all__ = [
-    "JSONDecodeError",
-
-    "PBError",
-    "PBStateCodeError",
-
     "PKURunnerError",
+    "PKURunnerRequestStatusError",
     "PKURunnerSuccessStateError",
     "PKURunnerUnauthorizedError",
+    "PKURunnerNotVerifiedError",
 
     "IAAAError",
+    "IAAARequestStatusError",
     "IAAASuccessStateError",
 ]
 
 
-class PBError(Exception):
-    """ PB 错误类 """
-    pass
-
-class PBStateCodeError(PBError):
-    """ PB 异常请求码 """
-    pass
-
-
 class PKURunnerError(Exception):
     """ PKURunner 错误类 """
+    pass
+
+class PKURunnerRequestStatusError(PKURunnerError):
+    """ PKURunner 请求状态码异常 """
     pass
 
 class PKURunnerSuccessStateError(PKURunnerError):
@@ -44,10 +34,17 @@ class PKURunnerUnauthorizedError(PKURunnerError):
     """ PKURunner 鉴权错误 """
     pass
 
+class PKURunnerNotVerifiedError(PKURunnerError):
+    """ PKURUnner 上传记录无效 """
+    pass
+
 
 class IAAAError(PKURunnerError):
     """ IAAA 错误类 """
     pass
+
+class IAAARequestStatusError(IAAAError):
+    """ IAAA 请求状态码异常 """
 
 class IAAASuccessStateError(IAAAError):
     """ IAAA 返回数据包 success 字段为 false ，异常请求结果 """

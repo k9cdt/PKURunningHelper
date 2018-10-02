@@ -11,10 +11,15 @@ import requests
 from functools import partial
 
 try:
+    from .error import IAAARequestStatusError, IAAASuccessStateError
+except (ImportError, SystemError, ValueError):
+    from error import IAAARequestStatusError, IAAASuccessStateError
+
+try:
     from ..util import (
             Config, Logger,
             json_load, json_dump, MD5,
-            JSONDecodeError, IAAAError, IAAASuccessStateError,
+            JSONDecodeError,
         )
 except (ImportError, SystemError, ValueError):
     import sys
@@ -22,7 +27,7 @@ except (ImportError, SystemError, ValueError):
     from util import (
             Config, Logger,
             json_load, json_dump, MD5,
-            JSONDecodeError, IAAAError, IAAASuccessStateError,
+            JSONDecodeError
         )
 
 
@@ -52,12 +57,12 @@ class IAAAClient(object):
                 headers              dict      基础请求头
     """
     AppID = "PKU_Runner"
-    AppSecret = "7696baa1fa4ed9679441764a271e556e"
+    AppSecret = "7696baa1fa4ed9679441764a271e556e" # 或者说 salt
 
     Cache_AccessToken = "PKURunner_AccessToken.json"
     Token_Expired = 7200 # token 缓存 2 小时
 
-    logger = Logger("iaaa")
+    logger = Logger("PKURunner.IAAA")
 
     def __init__(self, studentID, password):
         self.studentID = studentID
@@ -77,12 +82,18 @@ class IAAAClient(object):
                 url       str    请求 url/path
                 raw       bool   是否返回 Response 对象（默认 false），否则返回 json 数据
                 **kwargs         传给具体的 requests.request 函数
+            Returns:
+                respJson    jsonData    json 数据 if raw == False
+                resp        Response    原始 Response 实例 if raw == True
+            Raises:
+                IAAARequestStatusError  请求状态码异常
+                IAAASuccessStateError   success 状态为 false
         """
         resp = requests.request(method, url, headers=self.headers, **kwargs)
 
         if not resp.ok: # 校验 status_code
             self.logger.error(dict(resp.headers))
-            raise IAAAError("in resp.ok")
+            raise IAAARequestStatusError("in resp.ok")
 
         respJson = resp.json() # 校验 success 字段
         if not respJson.get('success'):

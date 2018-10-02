@@ -14,11 +14,15 @@ import copy
 from functools import partial
 
 try:
-    from util import (
+    from .error import PBError, PBStateCodeError
+except (ImportError, SystemError, ValueError):
+    from error import PBError, PBStateCodeError
+
+try:
+    from ..util import (
             Config,
             json_load,
             json,
-            PBStateCodeError,
         )
 except (ImportError, SystemError, ValueError):
     import sys
@@ -27,7 +31,6 @@ except (ImportError, SystemError, ValueError):
             Config,
             json_load,
             json,
-            PBStateCodeError,
         )
 
 
